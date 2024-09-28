@@ -1,5 +1,5 @@
 <?php
-echo 'I am a single-event';
+echo 'I am a single-Professor';
 get_header();
 ?>
 
@@ -21,7 +21,14 @@ $today = new DateTime(date('Ymd'));
 
 <div class="container container--narrow page-section">
   <div class="generic-content">
-    <?php the_content(); ?>
+    <div class="row group">
+      <div class="one-third">
+        <?php the_post_thumbnail('professorPortrait'); ?>
+      </div>
+      <div class="two-thirds">
+        <?php the_content(); ?>
+      </div>
+    </div>
   </div>
   <?php
   $relatedPrograms = get_field('related_programs');

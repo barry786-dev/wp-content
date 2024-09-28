@@ -150,28 +150,21 @@ $today = new DateTime(date('Ymd'));
   if ($relatedProfessors->have_posts()) {
     echo '<hr class="section-break">';
     echo '<h2 class="headline headline--medium">' . get_the_title() . ' Professor(s)</h2>';
+    echo '<ul class="professor-cards">';
+
     while ($relatedProfessors->have_posts()) {
       $relatedProfessors->the_post();
   ?>
-      <div class="event-summary">
-        <div class="event-summary__content">
-          <h5 class="event-summary__title headline headline--tiny"><a href="<?php the_permalink(); ?>">
-              <?php
-              the_title()
-              ?>
-            </a></h5>
-          <p><?php
-              if (has_excerpt()) {
-                echo get_the_excerpt();
-              } else {
-                echo wp_trim_words(get_the_content(), 18);
-              }
-              ?> <a href="<?php the_permalink(); ?>" class="nu gray">Learn more</a></p>
-        </div>
-      </div>
+      <li class="professor-card__list-item "><a class="professor-card" href="<?php the_permalink() ?>">
+          <img class="professor-card__image" src="<?php the_post_thumbnail_url('professorLandscape') ?>" alt="DR.Barks a lot">
+          <span class="professor-card__name"><?php
+                                              the_title();
+                                              ?></span>
+        </a></li>
   <?php };
-    wp_reset_postdata();
+    echo '</ul>';
   }
+  wp_reset_postdata();
   ?>
   <!-- ending listing the related professors -->
 

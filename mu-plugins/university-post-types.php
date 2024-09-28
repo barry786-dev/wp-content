@@ -53,7 +53,7 @@ function university_post_types()
       'show_in_rest' => 'true', // to use the modern block editor in wp
       'supports' => array(
         'title',
-        'editor', //'custom-fields'
+        'editor', 'thumbnail' //'custom-fields'
       ),
       //'rewrite' => array('slug' => 'professors'),
       // 'has_archive' => true, // tell wp that this type of posts has archive url post
