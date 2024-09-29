@@ -3,3 +3,5 @@
 /plugins
 /upgrade
 /uploads
+**/node_modules
+**/package-lock.json
