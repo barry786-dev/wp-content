@@ -17,7 +17,7 @@ pageBanner();
   $today = date('Ymd');
   $homepageEvents = new wp_query(array(
     'posts_per_page' => 2, // -1 give all the posts
-    'post_type' => 'event',
+    'post_type' => 'event', //use actual post type
     'meta_key' => 'event_date',
     'orderby' => 'meta_value_num', // 'title' or 'rand' default is 'post_date'
     'order' => 'ASC',
@@ -53,36 +53,6 @@ pageBanner();
   }
   ?>
   <!-- ending listing the related events -->
-  <!-- +++++++++++++++++++++ Start -->
-  <!-- <?php
-        $events = get_posts(array(
-          'post_type' => 'event',  //use actual post type
-          'meta_query' => array(
-            'relation' => 'or',
-            array(
-              'key' => 'related_programs', // name of custom field
-              'value' => '"' . get_the_ID() . '"', // matches exaclty "123", not just 123. This prevents a match for "1234"
-              'compare' => 'LIKE'
-            ),
-            array(
-              'key' => 'related_programs', // name of custom field
-              'value' => '"' . get_the_ID() . '"', // matches exaclty "123", not just 123. This prevents a match for "1234"
-              'compare' => 'LIKE'
-            )
-          )
-        ));
-
-        ?>
-  <?php if ($events) { ?>
-    <ul>
-      <?php foreach ($events as $event) { ?>
-        <li>
-          <?php echo get_the_title($event->ID); ?>
-        </li>
-      <?php }; ?>
-    </ul>
-  <?php }; ?> -->
-  <!-- ++++++++++++++++++++++++++ End -->
   <!-- starting listing the related professors -->
   <?php
   $relatedProfessors = new wp_query(array(
@@ -97,12 +67,6 @@ pageBanner();
         'compare' => 'LIKE',
         'value' => '"' . get_the_ID() . '"',
       ),
-      // array(
-      //   'key' => 'related_programs',
-      //   'compare' => '=',
-      //   'value' => the_post(),
-      //   'type' => 'numeric'
-      // )
     )
   ));
 
@@ -126,9 +90,33 @@ pageBanner();
   wp_reset_postdata();
   ?>
   <!-- ending listing the related professors -->
-
+  <!-- start listing related campuses -->
+  <?php
+  $relatedCampuses = get_field('related_campuses');
+  if ($relatedCampuses) {
+    echo '<hr class="section-break">';
+    echo '<h2 class="headline headline--medium">' . get_the_title() . ' is Available in these Campuses</h2>';
+    echo '<ul class="min-list link-list"';
+    foreach ($relatedCampuses as $campus) { ?>
+      <li>
+        <a href="<?php echo the_permalink($campus) ?>"><?php echo get_the_title($campus); ?></a>
+      </li>
+  <?php };
+    echo '</ul';
+  } ?>
 </div>
-
 <?php
 get_footer();
 ?>
+
+<!-- <div>
+  <h1>
+    <?php
+    foreach ($campuses as $campus) { ?>
+      <li>
+        <?php echo get_the_title($campus->ID); ?>
+      </li>
+    <?php }
+    ?>
+  </h1>
+</div> -->
